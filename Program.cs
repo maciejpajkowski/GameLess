@@ -16,7 +16,7 @@ namespace GameLess
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainContainer());
+            Application.Run(new MainContainerForm());
         }
     }
 }

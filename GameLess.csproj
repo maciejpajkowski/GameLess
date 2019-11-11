@@ -44,18 +44,28 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainContainer.cs">
+    <Compile Include="MainContainerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainContainer.Designer.cs">
-      <DependentUpon>MainContainer.cs</DependentUpon>
+    <Compile Include="MainContainerForm.Designer.cs">
+      <DependentUpon>MainContainerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainContainer.resx">
-      <DependentUpon>MainContainer.cs</DependentUpon>
+    <EmbeddedResource Include="MainContainerForm.resx">
+      <DependentUpon>MainContainerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
