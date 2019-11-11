@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace GameLess
 {
-    public partial class MainContainer : Form
+    public partial class OptionsForm : Form
     {
-        public MainContainer()
+        public OptionsForm()
         {
             InitializeComponent();
+        }
+
+        private void CloseOptionsButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
