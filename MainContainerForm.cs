@@ -23,6 +23,8 @@ namespace GameLess
 
         DateTime startTime;
         DateTime finishTime;
+        DateTime dt;
+        double sessionTotal;
 
         private void GameButton_Click(object sender, EventArgs e)
         {
@@ -31,6 +33,7 @@ namespace GameLess
                 sessionLaunched = true;
                 startTime = DateTime.UtcNow;
                 GameButton.Text = "End Session!";
+                CurrentSessionTimer.ForeColor = Color.Black;
 
                 FormTimer.Start();
             } 
@@ -41,17 +44,31 @@ namespace GameLess
 
                 finishTime = DateTime.UtcNow;
 
+                sessionTotal = Math.Round((finishTime - startTime).TotalSeconds);
+
+                // MessageBox.Show(sessionTotal.ToString()); // debug
+
                 FormTimer.Stop();
             }
         }
 
-        // TODO - uzyskać wartość totalną tj. czas sesji, tak aby móc go w jakiś sensowny sposób zapisać
-
-
         private void OnUpdateTimerTick(object sender, EventArgs e)
         {
-            DateTime dt = DateTime.Parse((DateTime.UtcNow - startTime).ToString());
+            dt = DateTime.Parse((DateTime.UtcNow - startTime).ToString());
+
             CurrentSessionTimer.Text = dt.Hour.ToString() + " hours " + dt.Minute.ToString() + " minutes " + dt.Second.ToString() + " seconds";
+            
+            sessionTotal = Math.Round((DateTime.UtcNow - startTime).TotalSeconds);
+
+            if (Convert.ToInt32(sessionTotal / 7200 * 100) < 100)
+            {
+                CurrentSessionProgressBar.Value = Convert.ToInt32(sessionTotal / 7200 * 100);
+            }
+            else
+            {
+                CurrentSessionProgressBar.Value = 100;
+                CurrentSessionTimer.ForeColor = Color.Red;
+            }
         }
 
         private void QuitButton_Click(object sender, EventArgs e)
