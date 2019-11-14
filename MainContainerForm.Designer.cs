@@ -52,6 +52,7 @@
             // 
             this.CurrentSessionTimer.AutoSize = true;
             this.CurrentSessionTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.CurrentSessionTimer.ForeColor = System.Drawing.Color.Black;
             this.CurrentSessionTimer.Location = new System.Drawing.Point(243, 22);
             this.CurrentSessionTimer.Name = "CurrentSessionTimer";
             this.CurrentSessionTimer.Size = new System.Drawing.Size(288, 25);
@@ -60,6 +61,7 @@
             // 
             // CurrentSessionProgressBar
             // 
+            this.CurrentSessionProgressBar.ForeColor = System.Drawing.SystemColors.ControlText;
             this.CurrentSessionProgressBar.Location = new System.Drawing.Point(29, 62);
             this.CurrentSessionProgressBar.Name = "CurrentSessionProgressBar";
             this.CurrentSessionProgressBar.Size = new System.Drawing.Size(502, 33);
