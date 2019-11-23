@@ -32,13 +32,16 @@
             this.TotalHoursAvailableLabel = new System.Windows.Forms.Label();
             this.TotalHoursAvailableValue = new System.Windows.Forms.NumericUpDown();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.DataFileLocationLabel = new System.Windows.Forms.Label();
+            this.DataFileLocationTextBox = new System.Windows.Forms.TextBox();
+            this.DataFileLocationBrowseButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.TotalHoursAvailableValue)).BeginInit();
             this.SuspendLayout();
             // 
             // CloseOptionsButton
             // 
             this.CloseOptionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.CloseOptionsButton.Location = new System.Drawing.Point(142, 123);
+            this.CloseOptionsButton.Location = new System.Drawing.Point(19, 123);
             this.CloseOptionsButton.Name = "CloseOptionsButton";
             this.CloseOptionsButton.Size = new System.Drawing.Size(105, 44);
             this.CloseOptionsButton.TabIndex = 0;
@@ -80,11 +83,44 @@
             this.checkBox1.Text = "Desktop notification on time\'s up";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // DataFileLocationLabel
+            // 
+            this.DataFileLocationLabel.AutoSize = true;
+            this.DataFileLocationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.DataFileLocationLabel.Location = new System.Drawing.Point(16, 83);
+            this.DataFileLocationLabel.Name = "DataFileLocationLabel";
+            this.DataFileLocationLabel.Size = new System.Drawing.Size(148, 17);
+            this.DataFileLocationLabel.TabIndex = 4;
+            this.DataFileLocationLabel.Text = "CSV Data file location:";
+            // 
+            // DataFileLocationTextBox
+            // 
+            this.DataFileLocationTextBox.Enabled = false;
+            this.DataFileLocationTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.DataFileLocationTextBox.Location = new System.Drawing.Point(170, 80);
+            this.DataFileLocationTextBox.Name = "DataFileLocationTextBox";
+            this.DataFileLocationTextBox.Size = new System.Drawing.Size(239, 23);
+            this.DataFileLocationTextBox.TabIndex = 5;
+            // 
+            // DataFileLocationBrowseButton
+            // 
+            this.DataFileLocationBrowseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.DataFileLocationBrowseButton.Location = new System.Drawing.Point(303, 110);
+            this.DataFileLocationBrowseButton.Name = "DataFileLocationBrowseButton";
+            this.DataFileLocationBrowseButton.Size = new System.Drawing.Size(106, 25);
+            this.DataFileLocationBrowseButton.TabIndex = 6;
+            this.DataFileLocationBrowseButton.Text = "Browse...";
+            this.DataFileLocationBrowseButton.UseVisualStyleBackColor = true;
+            this.DataFileLocationBrowseButton.Click += new System.EventHandler(this.DataFileLocationBrowseButton_Click);
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 179);
+            this.ClientSize = new System.Drawing.Size(421, 179);
+            this.Controls.Add(this.DataFileLocationBrowseButton);
+            this.Controls.Add(this.DataFileLocationTextBox);
+            this.Controls.Add(this.DataFileLocationLabel);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.TotalHoursAvailableValue);
             this.Controls.Add(this.TotalHoursAvailableLabel);
@@ -104,5 +140,8 @@
         private System.Windows.Forms.Label TotalHoursAvailableLabel;
         private System.Windows.Forms.NumericUpDown TotalHoursAvailableValue;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label DataFileLocationLabel;
+        private System.Windows.Forms.TextBox DataFileLocationTextBox;
+        private System.Windows.Forms.Button DataFileLocationBrowseButton;
     }
 }
