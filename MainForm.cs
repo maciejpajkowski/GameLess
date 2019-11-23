@@ -12,9 +12,9 @@ using System.Windows.Threading;
 
 namespace GameLess
 {
-    public partial class MainContainerForm : Form
+    public partial class MainForm : Form
     {
-        public MainContainerForm()
+        public MainForm()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace GameLess
 {
-    partial class MainContainerForm
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
