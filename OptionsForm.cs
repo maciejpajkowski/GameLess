@@ -13,31 +13,34 @@ namespace GameLess
 {
     public partial class OptionsForm : Form
     {
-        public OptionsForm()
+        public string CsvFilePath { get; set; }
+
+        public OptionsForm(string filePath)
         {
             InitializeComponent();
+            CsvFilePath = filePath;
+            DataFileLocationTextBox.Text = filePath;
         }
 
         private void CloseOptionsButton_Click(object sender, EventArgs e)
         {
+            MainForm.CsvFilePath = CsvFilePath;
             this.Close();
         }
 
         private void DataFileLocationBrowseButton_Click(object sender, EventArgs e)
         {
-            var filePath = string.Empty;
-
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+                openFileDialog.InitialDirectory = string.IsNullOrWhiteSpace(CsvFilePath) ? "C:\\" : CsvFilePath;
+                openFileDialog.Filter = "CSV files (*.csv)|*.csv";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //Get the path of specified file
-                    filePath = openFileDialog.FileName;
+                    CsvFilePath = openFileDialog.FileName;
 
                     //Read the contents of the file into a stream
                     var fileStream = openFileDialog.OpenFile();
@@ -45,10 +48,11 @@ namespace GameLess
                 }
                 else
                 {
-                    filePath = DataFileLocationTextBox.Text;
+                    CsvFilePath = DataFileLocationTextBox.Text;
                 }
             }
-            DataFileLocationTextBox.Text = filePath;
+            DataFileLocationTextBox.Text = CsvFilePath;
+            File.WriteAllText(MainForm.tempFilePath, CsvFilePath);
         }
     }
 }
