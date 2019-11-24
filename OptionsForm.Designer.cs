@@ -95,10 +95,10 @@
             // 
             // DataFileLocationTextBox
             // 
-            this.DataFileLocationTextBox.Enabled = false;
             this.DataFileLocationTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.DataFileLocationTextBox.Location = new System.Drawing.Point(170, 80);
             this.DataFileLocationTextBox.Name = "DataFileLocationTextBox";
+            this.DataFileLocationTextBox.ReadOnly = true;
             this.DataFileLocationTextBox.Size = new System.Drawing.Size(239, 23);
             this.DataFileLocationTextBox.TabIndex = 5;
             // 
