@@ -36,6 +36,7 @@
             this.OptionsButton = new System.Windows.Forms.Button();
             this.QuitButton = new System.Windows.Forms.Button();
             this.FormTimer = new System.Windows.Forms.Timer(this.components);
+            this.StatsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CurrentSessionLabel
@@ -71,9 +72,9 @@
             // GameButton
             // 
             this.GameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.GameButton.Location = new System.Drawing.Point(29, 109);
+            this.GameButton.Location = new System.Drawing.Point(29, 133);
             this.GameButton.Name = "GameButton";
-            this.GameButton.Size = new System.Drawing.Size(162, 69);
+            this.GameButton.Size = new System.Drawing.Size(136, 69);
             this.GameButton.TabIndex = 2;
             this.GameButton.Text = "Play!";
             this.GameButton.UseVisualStyleBackColor = true;
@@ -82,9 +83,9 @@
             // OptionsButton
             // 
             this.OptionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.OptionsButton.Location = new System.Drawing.Point(231, 122);
+            this.OptionsButton.Location = new System.Drawing.Point(186, 146);
             this.OptionsButton.Name = "OptionsButton";
-            this.OptionsButton.Size = new System.Drawing.Size(130, 45);
+            this.OptionsButton.Size = new System.Drawing.Size(103, 45);
             this.OptionsButton.TabIndex = 2;
             this.OptionsButton.Text = "Options";
             this.OptionsButton.UseVisualStyleBackColor = true;
@@ -93,9 +94,9 @@
             // QuitButton
             // 
             this.QuitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.QuitButton.Location = new System.Drawing.Point(401, 122);
+            this.QuitButton.Location = new System.Drawing.Point(428, 146);
             this.QuitButton.Name = "QuitButton";
-            this.QuitButton.Size = new System.Drawing.Size(130, 45);
+            this.QuitButton.Size = new System.Drawing.Size(103, 45);
             this.QuitButton.TabIndex = 2;
             this.QuitButton.Text = "Quit";
             this.QuitButton.UseVisualStyleBackColor = true;
@@ -106,18 +107,30 @@
             this.FormTimer.Interval = 1000;
             this.FormTimer.Tick += new System.EventHandler(this.OnUpdateTimerTick);
             // 
-            // MainContainerForm
+            // StatsButton
+            // 
+            this.StatsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.StatsButton.Location = new System.Drawing.Point(308, 146);
+            this.StatsButton.Name = "StatsButton";
+            this.StatsButton.Size = new System.Drawing.Size(103, 45);
+            this.StatsButton.TabIndex = 2;
+            this.StatsButton.Text = "Stats";
+            this.StatsButton.UseVisualStyleBackColor = true;
+            this.StatsButton.Click += new System.EventHandler(this.OptionsButton_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 190);
+            this.ClientSize = new System.Drawing.Size(565, 214);
             this.Controls.Add(this.QuitButton);
+            this.Controls.Add(this.StatsButton);
             this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.GameButton);
             this.Controls.Add(this.CurrentSessionProgressBar);
             this.Controls.Add(this.CurrentSessionTimer);
             this.Controls.Add(this.CurrentSessionLabel);
-            this.Name = "MainContainerForm";
+            this.Name = "MainForm";
             this.Text = "GameLess";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -133,6 +146,7 @@
         private System.Windows.Forms.Button OptionsButton;
         private System.Windows.Forms.Button QuitButton;
         private System.Windows.Forms.Timer FormTimer;
+        private System.Windows.Forms.Button StatsButton;
     }
 }
 
