@@ -13,18 +13,20 @@ namespace GameLess
 {
     public partial class OptionsForm : Form
     {
-        public string CsvFilePath { get; set; }
+        string csvFilePath;
+        public static decimal AvailableHours = 2;
 
         public OptionsForm(string filePath)
         {
             InitializeComponent();
-            CsvFilePath = filePath;
+            csvFilePath = filePath;
             DataFileLocationTextBox.Text = filePath;
+            TotalHoursAvailableValue.Value = AvailableHours;
         }
 
         private void CloseOptionsButton_Click(object sender, EventArgs e)
         {
-            MainForm.CsvFilePath = CsvFilePath;
+            MainForm.CsvFilePath = csvFilePath;
             this.Close();
         }
 
@@ -32,7 +34,7 @@ namespace GameLess
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = string.IsNullOrWhiteSpace(CsvFilePath) ? "C:\\" : CsvFilePath;
+                openFileDialog.InitialDirectory = string.IsNullOrWhiteSpace(csvFilePath) ? "C:\\" : csvFilePath;
                 openFileDialog.Filter = "CSV files (*.csv)|*.csv";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
@@ -40,7 +42,7 @@ namespace GameLess
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //Get the path of specified file
-                    CsvFilePath = openFileDialog.FileName;
+                    csvFilePath = openFileDialog.FileName;
 
                     //Read the contents of the file into a stream
                     var fileStream = openFileDialog.OpenFile();
@@ -48,11 +50,16 @@ namespace GameLess
                 }
                 else
                 {
-                    CsvFilePath = DataFileLocationTextBox.Text;
+                    csvFilePath = DataFileLocationTextBox.Text;
                 }
             }
-            DataFileLocationTextBox.Text = CsvFilePath;
-            File.WriteAllText(MainForm.tempFilePath, CsvFilePath);
+            DataFileLocationTextBox.Text = csvFilePath;
+            File.WriteAllText(MainForm.tempFilePath, csvFilePath);
+        }
+
+        private void TotalHoursAvailableValue_ValueChanged(object sender, EventArgs e)
+        {
+            AvailableHours = TotalHoursAvailableValue.Value;
         }
     }
 }

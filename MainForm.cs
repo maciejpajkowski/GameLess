@@ -18,8 +18,10 @@ namespace GameLess
         public MainForm()
         {
             InitializeComponent();
-            CsvFilePath = GetCurrentDataFilePath();
-            StartupPromptForDataFileLocation();
+            CsvFilePath = GetCurrentDataFilePath(); // Returns empty if no temp file was found or it was empty
+            StartupPromptForDataFileLocation(); // Runs if CsvFilePath is empty
+
+            sessions = CsvFilePath.LoadDataFromFile().BuildSessionList();
         }
 
         public static string tempFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\GameLessData.tmp");
@@ -31,15 +33,20 @@ namespace GameLess
         DateTime finishTime;
         DateTime dt;
         double sessionTotal;
+        List<SessionModel> sessions;
 
         private void GameButton_Click(object sender, EventArgs e)
         {
             if (!sessionLaunched)
             {
                 sessionLaunched = true;
-                startTime = DateTime.UtcNow;
                 GameButton.Text = "End Session!";
+
+                startTime = DateTime.Now;
+
                 CurrentSessionTimer.ForeColor = Color.Black;
+
+                CurrentSessionLabel.Text = "Current session:";
 
                 FormTimer.Start();
             } 
@@ -48,25 +55,31 @@ namespace GameLess
                 sessionLaunched = false;
                 GameButton.Text = "Play!";
 
-                finishTime = DateTime.UtcNow;
+                finishTime = DateTime.Now;
 
                 sessionTotal = Math.Round((finishTime - startTime).TotalSeconds);
 
                 FormTimer.Stop();
+
+                dt = DateTime.Parse((DateTime.Now - startTime).ToString());
+
+                CurrentSessionLabel.Text = "Last session:";
+
+                sessions.SaveNewSessionData(startTime, DateTime.Parse((DateTime.Now - startTime).ToString()));
             }
         }
 
         private void OnUpdateTimerTick(object sender, EventArgs e)
         {
-            dt = DateTime.Parse((DateTime.UtcNow - startTime).ToString());
+            dt = DateTime.Parse((DateTime.Now - startTime).ToString());
 
             CurrentSessionTimer.Text = dt.Hour.ToString() + " hours " + dt.Minute.ToString() + " minutes " + dt.Second.ToString() + " seconds";
             
-            sessionTotal = Math.Round((DateTime.UtcNow - startTime).TotalSeconds);
+            sessionTotal = Math.Round((DateTime.Now - startTime).TotalSeconds);
 
-            if (Convert.ToInt32(sessionTotal / 7200 * 100) < 100)
+            if (Convert.ToInt32(sessionTotal / ((double)OptionsForm.AvailableHours * 3600) * 100) < 100)
             {
-                CurrentSessionProgressBar.Value = Convert.ToInt32(sessionTotal / 7200 * 100);
+                CurrentSessionProgressBar.Value = Convert.ToInt32(sessionTotal / ((double)OptionsForm.AvailableHours * 3600) * 100);
             }
             else
             {
@@ -115,7 +128,7 @@ namespace GameLess
         {
             if (CsvFilePath == string.Empty)
             {
-                MessageBox.Show(@"Data file not found! Please select the folder, in which the data file will be stored. This can be later changed in the options menu.");
+                MessageBox.Show(@"Data file not found! Please select the folder, in which the data file will be stored. This can be later changed in the options menu.", "GameLess", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 
                 using (FolderBrowserDialog fbd = new FolderBrowserDialog())
                 {
@@ -126,14 +139,14 @@ namespace GameLess
                         CsvFilePath = Path.Combine(fbd.SelectedPath, "GameLessData.csv");
                         File.WriteAllText(tempFilePath, CsvFilePath);
                         File.WriteAllText(CsvFilePath, string.Empty);
-                        MessageBox.Show("Data file path successfully set to: " + CsvFilePath + "!");
+                        MessageBox.Show("Data file path successfully set to: " + CsvFilePath + "!", "GameLess", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                     }
                     else
                     {
                         CsvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\GameLessData.csv");
                         File.WriteAllText(tempFilePath, CsvFilePath);
                         File.WriteAllText(CsvFilePath, string.Empty);
-                        MessageBox.Show("No data file location has been selected. Defaulting to: " + CsvFilePath + ". This can be later changed in the options menu (all progress will be reset).");
+                        MessageBox.Show("No data file location has been selected. Defaulting to: " + CsvFilePath + ". This can be later changed in the options menu (all progress will be reset).", "GameLess", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                     }
                 }
             }

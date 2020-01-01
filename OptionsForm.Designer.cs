@@ -71,6 +71,7 @@
             0,
             0,
             0});
+            this.TotalHoursAvailableValue.ValueChanged += new System.EventHandler(this.TotalHoursAvailableValue_ValueChanged);
             // 
             // checkBox1
             // 
@@ -78,9 +79,9 @@
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.checkBox1.Location = new System.Drawing.Point(16, 46);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(231, 21);
+            this.checkBox1.Size = new System.Drawing.Size(372, 21);
             this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Desktop notification on time\'s up";
+            this.checkBox1.Text = "Desktop notification on time\'s up (not implemented yet)";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // DataFileLocationLabel
