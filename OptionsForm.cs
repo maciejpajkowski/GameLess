@@ -15,6 +15,7 @@ namespace GameLess
     {
         string csvFilePath;
         public static decimal AvailableHours = 2;
+        public static bool DesktopNotificationsEnabled = false;
 
         public OptionsForm(string filePath)
         {
@@ -22,6 +23,7 @@ namespace GameLess
             csvFilePath = filePath;
             DataFileLocationTextBox.Text = filePath;
             TotalHoursAvailableValue.Value = AvailableHours;
+            DesktopNotificationCheckbox.Checked = DesktopNotificationsEnabled;
         }
 
         private void CloseOptionsButton_Click(object sender, EventArgs e)
@@ -60,6 +62,11 @@ namespace GameLess
         private void TotalHoursAvailableValue_ValueChanged(object sender, EventArgs e)
         {
             AvailableHours = TotalHoursAvailableValue.Value;
+        }
+
+        private void DesktopNotificationCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            DesktopNotificationsEnabled = DesktopNotificationCheckbox.Checked;
         }
     }
 }

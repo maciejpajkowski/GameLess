@@ -31,7 +31,7 @@
             this.CloseOptionsButton = new System.Windows.Forms.Button();
             this.TotalHoursAvailableLabel = new System.Windows.Forms.Label();
             this.TotalHoursAvailableValue = new System.Windows.Forms.NumericUpDown();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.DesktopNotificationCheckbox = new System.Windows.Forms.CheckBox();
             this.DataFileLocationLabel = new System.Windows.Forms.Label();
             this.DataFileLocationTextBox = new System.Windows.Forms.TextBox();
             this.DataFileLocationBrowseButton = new System.Windows.Forms.Button();
@@ -73,16 +73,17 @@
             0});
             this.TotalHoursAvailableValue.ValueChanged += new System.EventHandler(this.TotalHoursAvailableValue_ValueChanged);
             // 
-            // checkBox1
+            // DesktopNotificationCheckbox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.checkBox1.Location = new System.Drawing.Point(16, 46);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(372, 21);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Desktop notification on time\'s up (not implemented yet)";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.DesktopNotificationCheckbox.AutoSize = true;
+            this.DesktopNotificationCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.DesktopNotificationCheckbox.Location = new System.Drawing.Point(16, 46);
+            this.DesktopNotificationCheckbox.Name = "DesktopNotificationCheckbox";
+            this.DesktopNotificationCheckbox.Size = new System.Drawing.Size(204, 21);
+            this.DesktopNotificationCheckbox.TabIndex = 3;
+            this.DesktopNotificationCheckbox.Text = "Enable desktop notifications";
+            this.DesktopNotificationCheckbox.UseVisualStyleBackColor = true;
+            this.DesktopNotificationCheckbox.CheckedChanged += new System.EventHandler(this.DesktopNotificationCheckbox_CheckedChanged);
             // 
             // DataFileLocationLabel
             // 
@@ -90,9 +91,9 @@
             this.DataFileLocationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.DataFileLocationLabel.Location = new System.Drawing.Point(16, 83);
             this.DataFileLocationLabel.Name = "DataFileLocationLabel";
-            this.DataFileLocationLabel.Size = new System.Drawing.Size(148, 17);
+            this.DataFileLocationLabel.Size = new System.Drawing.Size(150, 17);
             this.DataFileLocationLabel.TabIndex = 4;
-            this.DataFileLocationLabel.Text = "CSV Data file location:";
+            this.DataFileLocationLabel.Text = ".CSV data file location:";
             // 
             // DataFileLocationTextBox
             // 
@@ -122,13 +123,13 @@
             this.Controls.Add(this.DataFileLocationBrowseButton);
             this.Controls.Add(this.DataFileLocationTextBox);
             this.Controls.Add(this.DataFileLocationLabel);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.DesktopNotificationCheckbox);
             this.Controls.Add(this.TotalHoursAvailableValue);
             this.Controls.Add(this.TotalHoursAvailableLabel);
             this.Controls.Add(this.CloseOptionsButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "OptionsForm";
-            this.Text = "Options";
+            this.Text = "GameLess Options";
             ((System.ComponentModel.ISupportInitialize)(this.TotalHoursAvailableValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -140,7 +141,7 @@
         private System.Windows.Forms.Button CloseOptionsButton;
         private System.Windows.Forms.Label TotalHoursAvailableLabel;
         private System.Windows.Forms.NumericUpDown TotalHoursAvailableValue;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox DesktopNotificationCheckbox;
         private System.Windows.Forms.Label DataFileLocationLabel;
         private System.Windows.Forms.TextBox DataFileLocationTextBox;
         private System.Windows.Forms.Button DataFileLocationBrowseButton;

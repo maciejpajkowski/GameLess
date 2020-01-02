@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.CurrentSessionLabel = new System.Windows.Forms.Label();
             this.CurrentSessionTimer = new System.Windows.Forms.Label();
             this.CurrentSessionProgressBar = new System.Windows.Forms.ProgressBar();
@@ -37,6 +38,7 @@
             this.QuitButton = new System.Windows.Forms.Button();
             this.FormTimer = new System.Windows.Forms.Timer(this.components);
             this.StatsButton = new System.Windows.Forms.Button();
+            this.SystemTrayNotification = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // CurrentSessionLabel
@@ -116,7 +118,13 @@
             this.StatsButton.TabIndex = 2;
             this.StatsButton.Text = "Stats";
             this.StatsButton.UseVisualStyleBackColor = true;
-            this.StatsButton.Click += new System.EventHandler(this.OptionsButton_Click);
+            this.StatsButton.Click += new System.EventHandler(this.StatsButton_Click);
+            // 
+            // SystemTrayNotification
+            // 
+            this.SystemTrayNotification.Icon = ((System.Drawing.Icon)(resources.GetObject("SystemTrayNotification.Icon")));
+            this.SystemTrayNotification.Text = "GameLess";
+            this.SystemTrayNotification.Visible = true;
             // 
             // MainForm
             // 
@@ -130,6 +138,7 @@
             this.Controls.Add(this.CurrentSessionProgressBar);
             this.Controls.Add(this.CurrentSessionTimer);
             this.Controls.Add(this.CurrentSessionLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "GameLess";
             this.ResumeLayout(false);
@@ -147,6 +156,7 @@
         private System.Windows.Forms.Button QuitButton;
         private System.Windows.Forms.Timer FormTimer;
         private System.Windows.Forms.Button StatsButton;
+        private System.Windows.Forms.NotifyIcon SystemTrayNotification;
     }
 }
 
