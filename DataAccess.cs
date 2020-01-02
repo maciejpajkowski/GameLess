@@ -23,16 +23,19 @@ namespace GameLess
         {
             List<SessionModel> sessions = new List<SessionModel>();
 
-            foreach (string line in lines)
+            if (lines.Count > 0)
             {
-                string[] cols = line.Split(',');
+                foreach (string line in lines)
+                {
+                    string[] cols = line.Split(',');
 
-                SessionModel session = new SessionModel();
-                session.Id = int.Parse(cols[0]);
-                session.SessionDate = DateTime.Parse(cols[1]);
-                session.SessionLength = DateTime.Parse(cols[2]);
+                    SessionModel session = new SessionModel();
+                    session.Id = int.Parse(cols[0]);
+                    session.SessionDate = DateTime.Parse(cols[1]);
+                    session.SessionLength = DateTime.Parse(cols[2]);
 
-                sessions.Add(session);
+                    sessions.Add(session);
+                } 
             }
 
             return sessions;

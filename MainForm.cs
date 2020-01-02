@@ -49,6 +49,11 @@ namespace GameLess
                 CurrentSessionLabel.Text = "Current session:";
 
                 FormTimer.Start();
+
+                if (OptionsForm.DesktopNotificationsEnabled)
+                {
+                    SystemTrayNotification.ShowBalloonTip(3000, "Game session started!", "GameLess is now tracking the time of your game session.", ToolTipIcon.Info);
+                }
             } 
             else
             {
@@ -66,6 +71,11 @@ namespace GameLess
                 CurrentSessionLabel.Text = "Last session:";
 
                 sessions.SaveNewSessionData(startTime, DateTime.Parse((DateTime.Now - startTime).ToString()));
+
+                if (OptionsForm.DesktopNotificationsEnabled)
+                {
+                    SystemTrayNotification.ShowBalloonTip(3000, "Game session finished!", "Game time: " + (DateTime.Now - startTime).ToString(@"hh\:mm\:ss"), ToolTipIcon.Info);
+                }
             }
         }
 
@@ -85,6 +95,11 @@ namespace GameLess
             {
                 CurrentSessionProgressBar.Value = 100;
                 CurrentSessionTimer.ForeColor = Color.Red;
+
+                if (OptionsForm.DesktopNotificationsEnabled)
+                {
+                    SystemTrayNotification.ShowBalloonTip(3000, "Your gaming session has exceeded the limit!", "Game time: " + (DateTime.Now - startTime).ToString(@"hh\:mm\:ss"), ToolTipIcon.Info);
+                }
             }
         }
 
@@ -150,6 +165,12 @@ namespace GameLess
                     }
                 }
             }
+        }
+
+        private void StatsButton_Click(object sender, EventArgs e)
+        {
+            StatsForm statsForm = new StatsForm(sessions);
+            statsForm.Show();
         }
     }
 }
