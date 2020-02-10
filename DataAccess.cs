@@ -50,7 +50,7 @@ namespace GameLess
                 lines.Add($"{ s.Id },{ s.SessionDate },{ s.SessionLength }");
             }
 
-            File.WriteAllLines(MainForm.CsvFilePath, lines, Encoding.UTF8);
+            File.WriteAllLines(Properties.Settings.Default.PathToCSVFile, lines, Encoding.UTF8);
         }
 
         public static List<SessionModel> SaveNewSessionData(this List<SessionModel> currentSessions, DateTime argSessionDate, DateTime argSessionLength)

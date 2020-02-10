@@ -18,16 +18,18 @@ namespace GameLess
         public MainForm()
         {
             InitializeComponent();
-            CsvFilePath = GetCurrentDataFilePath(); // Returns empty if no temp file was found or it was empty
+            CsvFilePath = Properties.Settings.Default.PathToCSVFile;
             StartupPromptForDataFileLocation(); // Runs if CsvFilePath is empty
 
             sessions = CsvFilePath.LoadDataFromFile().BuildSessionList();
+
+            this.WindowState = FormWindowState.Minimized;
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
         }
 
-        public static string tempFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\GameLessData.tmp");
-
         bool sessionLaunched = false;
-        public static string CsvFilePath { get; set; }
+        public string CsvFilePath { get; set; }
 
         DateTime startTime;
         DateTime finishTime;
@@ -41,16 +43,13 @@ namespace GameLess
             {
                 sessionLaunched = true;
                 GameButton.Text = "End Session!";
-
                 startTime = DateTime.Now;
-
                 CurrentSessionTimer.ForeColor = Color.Black;
-
                 CurrentSessionLabel.Text = "Current session:";
 
                 FormTimer.Start();
 
-                if (OptionsForm.DesktopNotificationsEnabled)
+                if (Properties.Settings.Default.DesktopNotifications)
                 {
                     SystemTrayNotification.ShowBalloonTip(3000, "Game session started!", "GameLess is now tracking the time of your game session.", ToolTipIcon.Info);
                 }
@@ -61,18 +60,15 @@ namespace GameLess
                 GameButton.Text = "Play!";
 
                 finishTime = DateTime.Now;
-
                 sessionTotal = Math.Round((finishTime - startTime).TotalSeconds);
 
                 FormTimer.Stop();
 
                 dt = DateTime.Parse((DateTime.Now - startTime).ToString());
-
                 CurrentSessionLabel.Text = "Last session:";
-
                 sessions.SaveNewSessionData(startTime, DateTime.Parse((DateTime.Now - startTime).ToString()));
 
-                if (OptionsForm.DesktopNotificationsEnabled)
+                if (Properties.Settings.Default.DesktopNotifications)
                 {
                     SystemTrayNotification.ShowBalloonTip(3000, "Game session finished!", "Game time: " + (DateTime.Now - startTime).ToString(@"hh\:mm\:ss"), ToolTipIcon.Info);
                 }
@@ -87,16 +83,16 @@ namespace GameLess
             
             sessionTotal = Math.Round((DateTime.Now - startTime).TotalSeconds);
 
-            if (Convert.ToInt32(sessionTotal / ((double)OptionsForm.AvailableHours * 3600) * 100) < 100)
+            if (Convert.ToInt32(sessionTotal / ((double)Properties.Settings.Default.MaxPlayHours * 3600) * 100) < 100)
             {
-                CurrentSessionProgressBar.Value = Convert.ToInt32(sessionTotal / ((double)OptionsForm.AvailableHours * 3600) * 100);
+                CurrentSessionProgressBar.Value = Convert.ToInt32(sessionTotal / ((double)Properties.Settings.Default.MaxPlayHours * 3600) * 100);
             }
             else
             {
                 CurrentSessionProgressBar.Value = 100;
                 CurrentSessionTimer.ForeColor = Color.Red;
 
-                if (OptionsForm.DesktopNotificationsEnabled)
+                if (Properties.Settings.Default.DesktopNotifications)
                 {
                     SystemTrayNotification.ShowBalloonTip(3000, "Your gaming session has exceeded the limit!", "Game time: " + (DateTime.Now - startTime).ToString(@"hh\:mm\:ss"), ToolTipIcon.Info);
                 }
@@ -105,6 +101,7 @@ namespace GameLess
 
         private void QuitButton_Click(object sender, EventArgs e)
         {
+            SystemTrayNotification.Dispose();
             Environment.Exit(0);
         }
 
@@ -114,33 +111,10 @@ namespace GameLess
             optionsForm.Show();
         }
 
-        private string GetCurrentDataFilePath()
-        {
-            string csvPathToCheck;
-
-            if (File.Exists(tempFilePath))
-            {
-                csvPathToCheck = File.ReadAllText(tempFilePath);
-
-                if (!File.Exists(csvPathToCheck)) {
-
-                    return string.Empty;
-
-                } 
-                else
-                {
-                    return File.ReadAllText(tempFilePath);
-                }
-            }
-            else
-            {
-                File.WriteAllText(tempFilePath, string.Empty);
-                return string.Empty;
-            }
-        }
-
         private void StartupPromptForDataFileLocation()
         {
+
+
             if (CsvFilePath == string.Empty)
             {
                 MessageBox.Show(@"Data file not found! Please select the folder, in which the data file will be stored. This can be later changed in the options menu.", "GameLess", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
@@ -152,15 +126,15 @@ namespace GameLess
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
                         CsvFilePath = Path.Combine(fbd.SelectedPath, "GameLessData.csv");
-                        File.WriteAllText(tempFilePath, CsvFilePath);
-                        File.WriteAllText(CsvFilePath, string.Empty);
+                        Properties.Settings.Default.PathToCSVFile = CsvFilePath;
+                        Properties.Settings.Default.Save();
                         MessageBox.Show("Data file path successfully set to: " + CsvFilePath + "!", "GameLess", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                     }
                     else
                     {
                         CsvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\GameLessData.csv");
-                        File.WriteAllText(tempFilePath, CsvFilePath);
-                        File.WriteAllText(CsvFilePath, string.Empty);
+                        Properties.Settings.Default.PathToCSVFile = CsvFilePath;
+                        Properties.Settings.Default.Save();
                         MessageBox.Show("No data file location has been selected. Defaulting to: " + CsvFilePath + ". This can be later changed in the options menu (all progress will be reset).", "GameLess", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                     }
                 }

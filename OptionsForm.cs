@@ -13,22 +13,18 @@ namespace GameLess
 {
     public partial class OptionsForm : Form
     {
-        string csvFilePath;
-        public static decimal AvailableHours = 2;
-        public static bool DesktopNotificationsEnabled = false;
+        string csvFilePath = Properties.Settings.Default.PathToCSVFile;
 
         public OptionsForm(string filePath)
         {
             InitializeComponent();
-            csvFilePath = filePath;
-            DataFileLocationTextBox.Text = filePath;
-            TotalHoursAvailableValue.Value = AvailableHours;
-            DesktopNotificationCheckbox.Checked = DesktopNotificationsEnabled;
+            DataFileLocationTextBox.Text = Properties.Settings.Default.PathToCSVFile;
+            TotalHoursAvailableValue.Value = Properties.Settings.Default.MaxPlayHours;
+            DesktopNotificationCheckbox.Checked = Properties.Settings.Default.DesktopNotifications;
         }
 
         private void CloseOptionsButton_Click(object sender, EventArgs e)
         {
-            MainForm.CsvFilePath = csvFilePath;
             this.Close();
         }
 
@@ -56,17 +52,28 @@ namespace GameLess
                 }
             }
             DataFileLocationTextBox.Text = csvFilePath;
-            File.WriteAllText(MainForm.tempFilePath, csvFilePath);
+            Properties.Settings.Default.Save();
         }
 
         private void TotalHoursAvailableValue_ValueChanged(object sender, EventArgs e)
         {
-            AvailableHours = TotalHoursAvailableValue.Value;
+            Properties.Settings.Default.MaxPlayHours = (int)TotalHoursAvailableValue.Value;
+            Properties.Settings.Default.Save();
         }
 
         private void DesktopNotificationCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            DesktopNotificationsEnabled = DesktopNotificationCheckbox.Checked;
+            if (DesktopNotificationCheckbox.Checked)
+            {
+                Properties.Settings.Default.DesktopNotifications = true;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.DesktopNotifications = false;
+                Properties.Settings.Default.Save();
+            }
+
         }
     }
 }
